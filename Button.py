@@ -5,12 +5,14 @@ from tkinter import ttk
 # PlayerTurn = "X"
 GameHasEnded = False
 
-UsedSquares = []
+level = 1  #There can only be 8 levels or you will get an unbeatable level.
+
+
 
 
 class Square:
 
-    def __init__(self, app, col, r):
+    def __init__(self, app, col, r, winFunc, changeLevel, usedSquaresArray):
         self.option = "-"
         self.isClicked = False
         self.column = col
@@ -19,6 +21,9 @@ class Square:
         self.Button.grid(column=col, row=r)
         self.app = app
         self.id = id
+        self.winFunc = winFunc
+        self.changeLevel = changeLevel
+        self.UsedSquares = usedSquaresArray
 
     def Reload(self):
         self.Button.config(text=self.option)
@@ -27,8 +32,20 @@ class Square:
         if (self.isClicked == False):
             self.option = "💎"
             self.Reload()
-            UsedSquares.append(self)
-            print(UsedSquares)
+            self.UsedSquares.append(self)   ######################### HOW DO YOU APPEND YOURSELF TO A LIST??? SCRATCH THAT-- THIS WORKS. 
+            #print(UsedSquares)
+
+            if len(self.UsedSquares) == 8:
+                global level
+                if level < 8:
+                    level = level + 1
+                    print("from button, level:",level)
+                    print("from Button: new level has loaded!")
+                    self.changeLevel()
+                else:
+                    print("YOU WON!!!")
+                    self.winFunc()
+
                 
         else:
             print("You can no longer select this square.")
