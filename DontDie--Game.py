@@ -112,7 +112,15 @@ class DontDie:
             print("Used squares cleared.")
             bombs.clear()
             print("Clearbombs, bombs:", bombs) #not running on the reload.
+            print("Clearbombs, no. of stuff in grids:", len(grid))
+            for i in range(0, 9, 1):
+                # grid.remove(item)
+                del grid[0]
+                print("Item removed:", i)
+            del grid[:]
             grid.clear()
+            print("Grid was cleared, all was removed. Grid length:", len(grid))
+            #grid.clear()
             print("Clearbombs, grid", grid)
             grid.extend(newGrid)
             print("Clearbombs, new grid", grid)
